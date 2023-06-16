@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
+import toast, { Toaster } from 'react-hot-toast';
 import ContactList from './contactList';
 import Filter from './filter';
 import Form from './form';
@@ -30,7 +31,7 @@ const App = () => {
     );
 
     if (isExist) {
-      alert(`${number} is already in contacts.`);
+      toast.error(`${number} is already in contacts.`);
       return;
     }
     const contact = {
@@ -40,6 +41,7 @@ const App = () => {
     };
 
     setContacts([contact, ...contacts]);
+    toast.success(`${name} successfully add.`);
   };
 
   const getFilter = event => {
@@ -55,11 +57,12 @@ const App = () => {
   };
 
   const removeContact = ContId => {
-    setContacts(contacts.filter(({ id }) => id !== ContId));
+    setContacts(contacts.filter(contact => contact.id !== ContId));
   };
 
   return (
     <div className={css.container}>
+      <Toaster position="top-right" toastOptions={{ duration: 1500 }} />
       <h1 className={css.title}>Phonebook</h1>
       <Form onSubmit={addContact}></Form>
       <h2 className={css.title}>Contacts</h2>
