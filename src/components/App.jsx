@@ -40,7 +40,8 @@ const App = () => {
       number,
     };
 
-    setContacts([contact, ...contacts]);
+    // setContacts([contact, ...contacts]);
+    setContacts(prevContacts => [...prevContacts, contact]);
     toast.success(`${name} successfully add.`);
   };
 
@@ -57,7 +58,9 @@ const App = () => {
   };
 
   const removeContact = ContId => {
-    setContacts(contacts.filter(contact => contact.id !== ContId));
+    setContacts(prevContacts =>
+      prevContacts.filter(prevContact => prevContact.id !== ContId)
+    );
   };
 
   return (
